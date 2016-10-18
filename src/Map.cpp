@@ -105,8 +105,8 @@ void Map::createFood() {
         if (points.size() == 1) {
             food = points[0];
         } else {
-            // Create a food that is not near the snake's head
-            // This is a little tricky to avoid insoluble situation.
+            // Create a food that is not near the
+            // snake's head(to avoid an insoluble situation)
             while (1) {
                 food = points[random(0, points.size() - 1)];
                 auto adjPos = food.getAllAdjPos();
@@ -149,6 +149,10 @@ const Pos& Map::getFood() const {
 
 void Map::setShowSearchDetails(const bool &b) {
     showSearchDetails = b;
+}
+
+Point::value_type Map::heuristic(const Pos &from, const Pos &to) {
+    return getManhattenDist(from, to);
 }
 
 unsigned Map::getManhattenDist(const Pos &from, const Pos &to) {
@@ -331,6 +335,3 @@ void Map::dfsBreakWalls(const Pos &n, Map::hash_table &closeList) {
     }
 }
 
-Point::value_type Map::heuristic(const Pos &from, const Pos &to) const {
-    return getManhattenDist(from, to);
-}

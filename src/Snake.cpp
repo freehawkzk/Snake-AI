@@ -143,12 +143,11 @@ void Snake::decideNext() {
         return;
     }
 
-    // Copy a temp snake with a temp map
+    // Create a virtual snake
     Snake tmpSnake(*this);
     shared_ptr<Map> tmpMap = std::make_shared<Map>(*map);
     tmpSnake.setMap(tmpMap);
 
-    // Create two search path
     list<Direction> pathToFood, pathToTail;
 
     // Step1:
@@ -192,7 +191,7 @@ void Snake::decideNext() {
     auto adjPoints = head.getAllAdjPos();
     for (const auto &p : adjPoints) {
         if (!map->isUnsafe(p)) {
-            unsigned d = Map::getManhattenDist(p, map->getFood());
+            unsigned d = Map::heuristic(p, map->getFood());
             if (d > maxDist) {
                 maxDist = d;
                 direc = head.getDirectionTo(p);

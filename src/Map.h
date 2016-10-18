@@ -88,13 +88,13 @@ public:
     void setShowSearchDetails(const bool &b);
 
     /*
-    Calculate the manhatten distance between two positions.
+    Compute the heuristic value between two positions.
 
     @param from the start position
     @param to the end position
-    @return the manhatten distance
+    @return the heuristic value
     */
-    static unsigned getManhattenDist(const Pos &from, const Pos &to);
+    static Point::value_type heuristic(const Pos &from, const Pos &to);
 
     /*
     Find the shortest path between two positions. (BFS + A* search)
@@ -144,6 +144,15 @@ private:
     bool isUnsearch(const Pos &p) const;
 
     /*
+    Calculate the manhatten distance between two positions.
+
+    @param from the start position
+    @param to the end position
+    @return the manhatten distance
+    */
+    static unsigned getManhattenDist(const Pos &from, const Pos &to);
+
+    /*
     Use DFS to find the longest(approximately) path.
 
     @param n current position
@@ -174,15 +183,6 @@ private:
     @param path the result will be stored in this field.
     */
     void constructPath(const Pos &from, const Pos &to, std::list<Direction> &path);
-
-    /*
-    Compute the heuristic value between two positions.
-
-    @param from the start position
-    @param to the end position
-    @return the heuristic value
-    */
-    Point::value_type heuristic(const Pos &from, const Pos &to) const;
 
     /*
     Show a visited node on the map. This method is designed for
