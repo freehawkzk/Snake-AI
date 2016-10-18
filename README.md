@@ -34,13 +34,11 @@ For usage, see function [main()](./src/main.cpp)
 
 ## Demo
 
-AI:
+* Snake AI:
 
-![](img/AI.gif)
+  ![](img/AI.gif)
    
-Algorithm test
-
-(the green areas are scanned by the search algorithm and red areas are the path)
+Graph algorithms (green area is scanned by search algorithm and red area is the result path)
 
 * Dijkstra
 
@@ -49,6 +47,8 @@ Algorithm test
 * Dijkstra + A*
 
    ![](img/dijkstra_Astar.gif)
+
+Other algorithms
 
 * Maze generate
 
