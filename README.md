@@ -80,15 +80,15 @@ For more in Chinese, please see [中文博客](http://blog.csdn.net/qq_22885773/
 
 ## Todos
 
-* Optimize AI algorithm
+Optimize AI algorithm:
 
-  AI algorithm is imperfect since the snake sometimes moves to an insoluable situation(just run the program and you will see). There are some possible solutions:
+AI algorithm is imperfect since the snake sometimes moves to an insoluable situation(just run the program and you will see). There are some possible solutions:
   
-  | Description | Result |
-  |-------------|--------|
-  |make the longest/shortest path contain as few corners as possible, namely as straight as possible|not implement|
+| Description | Result |
+|-------------|--------|
+|make the longest/shortest path contain as few corners as possible, namely as straight as possible|not implement|
 
-  **You could contribute by commenting or implementing the solutions above or by adding new possible solutions.**
+**You could contribute by commenting or implementing the solutions above or by adding new possible solutions.**
 
 ## License
 
