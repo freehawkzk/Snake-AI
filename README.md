@@ -4,7 +4,7 @@ A snake game AI written in c/c++.
 
 The goal is to eat all the food and make the map fill with the snake's bodies. 
 
-To contribute, please see the [todo list](#todos).
+To contribute, please see [todos](#todos).
 
 ## What can this program do?
 
@@ -76,16 +76,18 @@ Other algorithms
  
 5. Let ***D*** be the direction that makes the snake the farthest from the food.
 
-For more in Chinese, please see [中文博客](http://blog.csdn.net/qq_22885773/article/details/51888925)
+For more in Chinese, please see [中文博客](http://blog.csdn.net/qq_22885773/article/details/51888925).
 
 ## Todos
 
 Optimize AI algorithm:
 
-AI algorithm is imperfect since the snake sometimes moves to an insoluable situation(just run the program and you will see). There are some possible solutions:
+AI algorithm is imperfect since the snake sometimes moves to an insoluable situation(just run the program and you will see).
+
+There are some possible solutions:
   
-| Description | Result |
-|-------------|--------|
+| Solution | Test Result |
+|----------|-------------|
 |make the longest/shortest path contain as few corners as possible, namely as straight as possible|not implement|
 
 **You could contribute by commenting or implementing the solutions above or by adding new possible solutions.**
