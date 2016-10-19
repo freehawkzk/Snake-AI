@@ -4,6 +4,8 @@ A snake game AI written in c/c++.
 
 The goal is to eat all the food and make the map fill with the snake's bodies. 
 
+To contribute, please see the [todo list](#todos).
+
 ## What can this program do?
 
 * Play classic snake game.
@@ -58,9 +60,11 @@ Other algorithms
 
 ## How does the AI algorithm work?
 
-Function [Snake.decideNext()](./src/Snake.cpp) will compute the next move direction(***D***) of the snake.
+[Map.findMinPath()](./src/Map.cpp): compute the shortest path between two positions.
 
-Procedure:
+[Map.findMaxPath()](./src/Map.cpp): compute the longest path between two positions.
+
+[Snake.decideNext()](./src/Snake.cpp): compute the next move direction(***D***) of the snake, the procedure is:
 
 1. Compute the shortest path(***P1***) from the origin snake(***S1***)'s head to food.
  
@@ -78,7 +82,13 @@ For more in Chinese, please see [中文博客](http://blog.csdn.net/qq_22885773/
 
 * Optimize AI algorithm
 
-  AI algorithm is imperfect since the snake sometimes moves to an insoluable situation(just run the program and you will see).
+  AI algorithm is imperfect since the snake sometimes moves to an insoluable situation(just run the program and you will see). There are some possible solutions:
+  
+  | Description | Result |
+  |-------------|--------|
+  |make the longest/shortest path contain as few corners as possible, namely as straight as possible|not implement|
+
+  **You could contribute by commenting or implementing the solutions above or by adding new possible solutions.**
 
 ## License
 
