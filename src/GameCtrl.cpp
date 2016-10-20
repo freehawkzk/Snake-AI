@@ -94,8 +94,8 @@ int GameCtrl::run() {
     try {
         init();
         if (runTest) {
-            //testCreateFood();
-            testGraphSearch();
+            testCreateFood();
+            //testGraphSearch();
             //testMaze();
         }
         while (true) {}
@@ -134,9 +134,9 @@ void GameCtrl::initMap() {
 }
 
 void GameCtrl::initSnakes() {
-    snake1.setHeadType(Point::Type::SNAKEHEAD1);
-    snake1.setBodyType(Point::Type::SNAKEBODY1);
-    snake1.setTailType(Point::Type::SNAKETAIL1);
+    snake1.setHeadType(Point::Type::SNAKEHEAD);
+    snake1.setBodyType(Point::Type::SNAKEBODY);
+    snake1.setTailType(Point::Type::SNAKETAIL);
     snake1.setMap(map);
     snake1.addBody(Pos(1, 3));
     snake1.addBody(Pos(1, 2));
@@ -167,7 +167,7 @@ void GameCtrl::moveSnake(Snake &s) {
     } else {
         try {
             s.move();
-            if (recordMovements) {
+            if (recordMovements && s.getDirection() != NONE) {
                 writeMapToFile();
             }
             mutexMove.unlock();
@@ -193,11 +193,11 @@ void GameCtrl::writeMapToFile() const {
                     fwrite("# ", sizeof(char), 2, movementFile); break;
                 case Point::Type::FOOD:
                     fwrite("F ", sizeof(char), 2, movementFile); break;
-                case Point::Type::SNAKEHEAD1:
+                case Point::Type::SNAKEHEAD:
                     fwrite("H ", sizeof(char), 2, movementFile); break;
-                case Point::Type::SNAKEBODY1:
+                case Point::Type::SNAKEBODY:
                     fwrite("B ", sizeof(char), 2, movementFile); break;
-                case Point::Type::SNAKETAIL1:
+                case Point::Type::SNAKETAIL:
                     fwrite("T ", sizeof(char), 2, movementFile); break;
                 default:
                     break;
@@ -249,13 +249,13 @@ void GameCtrl::drawMapContent() const {
                 case Point::Type::FOOD:
                     Console::writeWithColor("  ", ConsoleColor(YELLOW, YELLOW, true, true));
                     break;
-                case Point::Type::SNAKEHEAD1:
+                case Point::Type::SNAKEHEAD:
                     Console::writeWithColor("  ", ConsoleColor(RED, RED, true, true));
                     break;
-                case Point::Type::SNAKEBODY1:
+                case Point::Type::SNAKEBODY:
                     Console::writeWithColor("  ", ConsoleColor(GREEN, GREEN, true, true));
                     break;
-                case Point::Type::SNAKETAIL1:
+                case Point::Type::SNAKETAIL:
                     Console::writeWithColor("  ", ConsoleColor(BLUE, BLUE, true, true));
                     break;
                 default:
@@ -340,7 +340,6 @@ void GameCtrl::autoMove() {
 void GameCtrl::testCreateFood() {
     while (1) {
         map->createFood();
-        sleepFor(1);
     }
 }
 

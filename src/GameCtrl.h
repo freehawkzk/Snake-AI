@@ -63,8 +63,8 @@ public:
     int run();
 
 private:
-    Map::size_type mapRowCnt = 20;
-    Map::size_type mapColCnt = 20;
+    Map::size_type mapRowCnt = 10;
+    Map::size_type mapColCnt = 10;
     double fps = 59.0;
     long moveInterval = 30;
     bool enableAI = true;

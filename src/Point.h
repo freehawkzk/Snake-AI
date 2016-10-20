@@ -13,9 +13,9 @@ public:
         EMPTY,
         WALL,
         FOOD,
-        SNAKEBODY1,
-        SNAKEHEAD1,
-        SNAKETAIL1,
+        SNAKEBODY,
+        SNAKEHEAD,
+        SNAKETAIL,
     };
 
     Point();

@@ -4,7 +4,7 @@ int main() {
     auto game = GameCtrl::getInstance();
 
     // Set map's size(including boundaries)
-    // Default is 20*20. Minimum is 4*4.
+    // Default is 10*10. Minimum is 4*4.
     game->setMapRow(10);
     game->setMapCol(10);
 

@@ -44,16 +44,16 @@ const Point& Map::getPoint(const Pos &p) const {
 
 bool Map::isUnsafe(const Pos &p) const {
     return getPoint(p).getType() == Point::Type::WALL
-        || getPoint(p).getType() == Point::Type::SNAKEHEAD1
-        || getPoint(p).getType() == Point::Type::SNAKEBODY1
-        || getPoint(p).getType() == Point::Type::SNAKETAIL1;
+        || getPoint(p).getType() == Point::Type::SNAKEHEAD
+        || getPoint(p).getType() == Point::Type::SNAKEBODY
+        || getPoint(p).getType() == Point::Type::SNAKETAIL;
 }
 
 bool Map::isUnsearch(const Pos &p) const {
     return getPoint(p).getType() == Point::Type::WALL
-        || getPoint(p).getType() == Point::Type::SNAKEHEAD1
-        || getPoint(p).getType() == Point::Type::SNAKEBODY1
-        || getPoint(p).getType() == Point::Type::SNAKETAIL1
+        || getPoint(p).getType() == Point::Type::SNAKEHEAD
+        || getPoint(p).getType() == Point::Type::SNAKEBODY
+        || getPoint(p).getType() == Point::Type::SNAKETAIL
         || getPoint(p).getType() == Point::Type::FOOD;
 }
 
@@ -64,7 +64,11 @@ bool Map::isInside(const Pos &p) const {
 }
 
 bool Map::isHead(const Pos &p) const {
-    return content[p.getX()][p.getY()].getType() == Point::Type::SNAKEHEAD1;
+    return isInside(p) && content[p.getX()][p.getY()].getType() == Point::Type::SNAKEHEAD;
+}
+
+bool Map::isTail(const Pos &p) const {
+    return isInside(p) && content[p.getX()][p.getY()].getType() == Point::Type::SNAKETAIL;
 }
 
 bool Map::isAllBody() const {
@@ -72,9 +76,9 @@ bool Map::isAllBody() const {
     for (size_type i = 1; i < rows - 1; ++i) {
         for (size_type j = 1; j < cols - 1; ++j) {
             auto type = content[i][j].getType();
-            if (!(type == Point::Type::SNAKEHEAD1
-                || type == Point::Type::SNAKEBODY1
-                || type == Point::Type::SNAKETAIL1)) {
+            if (!(type == Point::Type::SNAKEHEAD
+                || type == Point::Type::SNAKEBODY
+                || type == Point::Type::SNAKETAIL)) {
                 return false;
             }
         }
@@ -102,22 +106,23 @@ void Map::createFood() {
     vector<Pos> points;
     getEmptyPoints(points);
     if (!points.empty()) {
-        if (points.size() == 1) {
-            food = points[0];
-        } else {
-            // Create a food that is not near the
-            // snake's head(to avoid an insoluble situation)
+        food = points[0];  // Default food position
+        if (points.size() > 1) {
             while (1) {
                 food = points[random(0, points.size() - 1)];
+                bool hasHead = false, hasTail = false;
                 auto adjPos = food.getAllAdjPos();
-                bool ok = true;
                 for (const auto &p : adjPos) {
                     if (isHead(p)) {
-                        ok = false;
-                        break;
+                        hasHead = true;
+                    }
+                    if (isTail(p)) {
+                        hasTail = true;
                     }
                 }
-                if (ok) break;
+                if (!(hasHead && hasTail)) {
+                    break;
+                }
             }
         }
     }
@@ -172,10 +177,10 @@ void Map::showPathIfNeeded(const Pos &start, const std::list<Direction> &path) {
     if (showSearchDetails) {
         auto tmp = start;
         for (const auto &d : path) {
-            showVisitedNodeIfNeeded(tmp, Point::Type::SNAKEHEAD1);
+            showVisitedNodeIfNeeded(tmp, Point::Type::SNAKEHEAD);
             tmp = tmp.getAdjPos(d);
         }
-        showVisitedNodeIfNeeded(tmp, Point::Type::SNAKEHEAD1);
+        showVisitedNodeIfNeeded(tmp, Point::Type::SNAKEHEAD);
     }
 }
 
@@ -232,7 +237,7 @@ void Map::findMinPath(const Pos &from, const Pos &to, std::list<Direction> &path
             break;
         }
 
-        showVisitedNodeIfNeeded(curPos, Point::Type::SNAKEBODY1);
+        showVisitedNodeIfNeeded(curPos, Point::Type::SNAKEBODY);
 
         if (curPos == to) {
             constructPath(from, to, path);
@@ -272,7 +277,7 @@ void Map::dfsFindLongest(const Pos &n,
               Map::hash_table &closeList,
               std::list<Direction> &path) {
     closeList.insert(n);
-    showVisitedNodeIfNeeded(n, Point::Type::SNAKEBODY1);
+    showVisitedNodeIfNeeded(n, Point::Type::SNAKEBODY);
     if (n == to) {
         constructPath(from, to, path);
     } else {

@@ -41,6 +41,11 @@ public:
     bool isHead(const Pos &p) const;
 
     /*
+    Check if the point at the position is a snake's tail.
+    */
+    bool isTail(const Pos &p) const;
+
+    /*
     Check whether the map is filled with snake body.
     */
     bool isAllBody() const;

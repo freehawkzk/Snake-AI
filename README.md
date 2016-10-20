@@ -74,7 +74,7 @@ Other algorithms
  
 4. Compute the longest path(***P3***) from the ***S1***'s head to its tail. If ***P3*** exists, let ***D*** be the first direction in ***P3***. Otherwise go to step 5.
  
-5. Let ***D*** be the direction that makes the snake the farthest from the food.
+5. Let ***D*** be the direction that makes the snake the farthest from food.
 
 For more in Chinese, please see [中文博客](http://blog.csdn.net/qq_22885773/article/details/51888925).
 
@@ -84,11 +84,12 @@ Optimize AI algorithm:
 
 AI algorithm is imperfect since the snake sometimes moves to an insoluable situation(just run the program and you will see).
 
-There are some possible solutions:
+Some possible solutions:
   
-| Solution | Test Result |
-|----------|-------------|
-|make the longest/shortest path contain as few corners as possible, namely as straight as possible|not implement|
+| Solution | Implemented? | Comment |
+|----------|:------------:|---------|
+|When there are only two empty points on the map, create food at the point which is not near the snake's head to avoid death|Yes|Effective. Since if the snake eats the food that is in front of it, it has no way to move in the next step.|
+|Make the search path contain as few corners as possible, namely as straight as possible|No||
 
 **You could contribute by commenting or implementing the solutions above or by adding new possible solutions.**
 
