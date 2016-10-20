@@ -86,10 +86,10 @@ AI algorithm is imperfect since the snake sometimes moves to an insoluable situa
 
 Some possible solutions:
   
-| Solution | Implemented? | Comment |
-|----------|:------------:|---------|
-|When there are only two empty points on the map, create food at the point which is not near the snake's head to avoid death|Yes|Effective. Since if the snake eats the food that is in front of it, it has no way to move in the next step.|
-|Make the search path contain as few corners as possible, namely as straight as possible|No||
+| # | Solution | Implemented? | Comment |
+|:-:|----------|:------------:|---------|
+|1|Do not create food at the points whose adjacent points contain a snake's head and a snake's tail|Yes|Effective. Since if the snake eats the adjacent food, it has no way to move in the next step.|
+|2|Make the search path contain as few corners as possible, namely as straight as possible|No|None|
 
 **You could contribute by commenting or implementing the solutions above or by adding new possible solutions.**
 
