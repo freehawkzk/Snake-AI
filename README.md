@@ -89,7 +89,7 @@ Some possible solutions:
 | # | Solution | Implemented? | Comment |
 |:-:|----------|:------------:|---------|
 |1|Do not create food at the points whose adjacent points contain a snake's head and a snake's tail|Yes|Effective. Since if the snake eats the adjacent food, it has no way to move in the next step.|
-|2|Make the search path contain as few corners as possible, namely as straight as possible|No|None|
+|2|Make the search path contain as few corners as possible, namely as straight as possible|No|How to modify the search algorithm to implement this?|
 
 **You could contribute by commenting or implementing the solutions above or by adding new possible solutions.**
 
