@@ -187,11 +187,11 @@ void Snake::decideNext() {
     // If no available path is found in step 1 and 2, then find a
     // direction that is the farthest from the food.
     auto head = getHead();
-    unsigned maxDist = 0;
+    int maxDist = -1;
     auto adjPoints = head.getAllAdjPos();
     for (const auto &p : adjPoints) {
         if (!map->isUnsafe(p)) {
-            unsigned d = Map::heuristic(p, map->getFood());
+            int d = Map::heuristic(p, map->getFood());
             if (d > maxDist) {
                 maxDist = d;
                 direc = head.getDirectionTo(p);

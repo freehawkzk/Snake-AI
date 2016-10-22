@@ -100,33 +100,12 @@ void Map::getEmptyPoints(vector<Pos> &res) const {
 }
 
 void Map::createFood() {
-    if (isAllBody()) {
-        return;
+    vector<Pos> emptyPoints;
+    getEmptyPoints(emptyPoints);
+    if (!emptyPoints.empty()) {
+        food = emptyPoints[random(0, emptyPoints.size() - 1)];
+        content[food.getX()][food.getY()].setType(Point::Type::FOOD);
     }
-    vector<Pos> points;
-    getEmptyPoints(points);
-    if (!points.empty()) {
-        food = points[0];  // Default food position
-        if (points.size() > 1) {
-            while (1) {
-                food = points[random(0, points.size() - 1)];
-                bool hasHead = false, hasTail = false;
-                auto adjPos = food.getAllAdjPos();
-                for (const auto &p : adjPos) {
-                    if (isHead(p)) {
-                        hasHead = true;
-                    }
-                    if (isTail(p)) {
-                        hasTail = true;
-                    }
-                }
-                if (!(hasHead && hasTail)) {
-                    break;
-                }
-            }
-        }
-    }
-    content[food.getX()][food.getY()].setType(Point::Type::FOOD);
 }
 
 void Map::removeFood() {
