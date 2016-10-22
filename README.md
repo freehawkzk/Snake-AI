@@ -33,8 +33,8 @@ For usage, see function [main()](./src/main.cpp)
 |A|move left|
 |S|move down|
 |D|move right|
-|Space|pause/resume game|
-|Esc|terminate game|
+|Space|pause/resume the snake|
+|Esc|exit game|
 
 ## Demo
 

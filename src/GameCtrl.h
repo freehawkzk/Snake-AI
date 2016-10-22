@@ -73,7 +73,7 @@ private:
 
     bool pause = false;  // Field to implement pause/resume game
 
-    Snake snake1;
+    Snake snake;
     std::shared_ptr<Map> map;
 
     bool threadWork = true;      // Thread running switcher

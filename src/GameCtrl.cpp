@@ -134,13 +134,13 @@ void GameCtrl::initMap() {
 }
 
 void GameCtrl::initSnakes() {
-    snake1.setHeadType(Point::Type::SNAKEHEAD);
-    snake1.setBodyType(Point::Type::SNAKEBODY);
-    snake1.setTailType(Point::Type::SNAKETAIL);
-    snake1.setMap(map);
-    snake1.addBody(Pos(1, 3));
-    snake1.addBody(Pos(1, 2));
-    snake1.addBody(Pos(1, 1));
+    snake.setHeadType(Point::Type::SNAKEHEAD);
+    snake.setBodyType(Point::Type::SNAKEBODY);
+    snake.setTailType(Point::Type::SNAKETAIL);
+    snake.setMap(map);
+    snake.addBody(Pos(1, 3));
+    snake.addBody(Pos(1, 2));
+    snake.addBody(Pos(1, 1));
 }
 
 void GameCtrl::initFiles() {
@@ -272,16 +272,16 @@ void GameCtrl::keyboard() {
             if (Console::kbhit()) {
                 switch (Console::getch()) {
                     case 'w':
-                        keyboardMove(snake1, Direction::UP);
+                        keyboardMove(snake, Direction::UP);
                         break;
                     case 'a':
-                        keyboardMove(snake1, Direction::LEFT);
+                        keyboardMove(snake, Direction::LEFT);
                         break;
                     case 's':
-                        keyboardMove(snake1, Direction::DOWN);
+                        keyboardMove(snake, Direction::DOWN);
                         break;
                     case 'd':
-                        keyboardMove(snake1, Direction::RIGHT);
+                        keyboardMove(snake, Direction::RIGHT);
                         break;
                     case ' ':
                         pause = !pause;  // Pause or resume game
@@ -301,10 +301,15 @@ void GameCtrl::keyboard() {
 }
 
 void GameCtrl::keyboardMove(Snake &s, const Direction &d) {
-    if (s.getDirection() == d) {
-        moveSnake(s);  // Accelerate
-    } else {
+    if (pause) {
         s.setDirection(d);
+        moveSnake(s);
+    } else if (!enableAI) {
+        if (s.getDirection() == d) {
+            moveSnake(s);  // Accelerate
+        } else {
+            s.setDirection(d);
+        }
     }
 }
 
@@ -324,13 +329,13 @@ void GameCtrl::createFood() {
 void GameCtrl::autoMove() {
     try {
         while (threadWork) {
+            sleepFor(moveInterval);
             if (!pause) {
                 if (enableAI) {
-                    snake1.decideNext();
+                    snake.decideNext();
                 }
-                moveSnake(snake1);
+                moveSnake(snake);
             }
-            sleepFor(moveInterval);
         }
     } catch (const std::exception &e) {
         exitGameWithError(e.what());
