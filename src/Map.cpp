@@ -5,6 +5,7 @@
 
 using std::vector;
 using std::string;
+using std::list;
 
 Map::Map(const size_type &rowCnt_, const size_type &colCnt_)
     : content(rowCnt_, vector<Point>(colCnt_)) {
@@ -99,13 +100,17 @@ void Map::getEmptyPoints(vector<Pos> &res) const {
     }
 }
 
-void Map::createFood() {
+void Map::createRandFood() {
     vector<Pos> emptyPoints;
     getEmptyPoints(emptyPoints);
     if (!emptyPoints.empty()) {
-        food = emptyPoints[random(0, emptyPoints.size() - 1)];
-        content[food.getX()][food.getY()].setType(Point::Type::FOOD);
+        createFood(emptyPoints[random(0, emptyPoints.size() - 1)]);
     }
+}
+
+void Map::createFood(const Pos &pos) {
+    food = pos;
+    content[food.getX()][food.getY()].setType(Point::Type::FOOD);
 }
 
 void Map::removeFood() {
@@ -152,7 +157,7 @@ void Map::showVisitedNodeIfNeeded(const Pos &n, const Point::Type &type) {
     }
 }
 
-void Map::showPathIfNeeded(const Pos &start, const std::list<Direction> &path) {
+void Map::showPathIfNeeded(const Pos &start, const list<Direction> &path) {
     if (showSearchDetails) {
         auto tmp = start;
         for (const auto &d : path) {
@@ -163,7 +168,7 @@ void Map::showPathIfNeeded(const Pos &start, const std::list<Direction> &path) {
     }
 }
 
-void Map::constructPath(const Pos &from, const Pos &to, std::list<Direction> &path) {
+void Map::constructPath(const Pos &from, const Pos &to, list<Direction> &path) {
     path.clear();
     Pos tmp = to, parent;
     while (tmp != Pos::INVALID && tmp != from) {
@@ -173,7 +178,7 @@ void Map::constructPath(const Pos &from, const Pos &to, std::list<Direction> &pa
     }
 }
 
-void Map::findMinPath(const Pos &from, const Pos &to, std::list<Direction> &path) {
+void Map::findMinPath(const Pos &from, const Pos &to, list<Direction> &path) {
     if (!isInside(from) || !isInside(to)) {
         return;
     }
@@ -241,7 +246,7 @@ void Map::findMinPath(const Pos &from, const Pos &to, std::list<Direction> &path
     }
 }
 
-void Map::findMaxPath(const Pos &from, const Pos &to, std::list<Direction> &path) {
+void Map::findMaxPath(const Pos &from, const Pos &to, list<Direction> &path) {
     if (!isInside(from) || !isInside(to)) {
         return;
     }
@@ -251,10 +256,10 @@ void Map::findMaxPath(const Pos &from, const Pos &to, std::list<Direction> &path
 }
 
 void Map::dfsFindLongest(const Pos &n,
-              const Pos &from,
-              const Pos &to,
-              Map::hash_table &closeList,
-              std::list<Direction> &path) {
+                         const Pos &from,
+                         const Pos &to,
+                         Map::hash_table &closeList,
+                         list<Direction> &path) {
     closeList.insert(n);
     showVisitedNodeIfNeeded(n, Point::Type::SNAKEBODY);
     if (n == to) {

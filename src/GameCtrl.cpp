@@ -317,7 +317,7 @@ void GameCtrl::createFood() {
     try {
         while (threadWork) {
             if (!map->hasFood()) {
-                map->createFood();
+                map->createRandFood();
             }
             sleepByFPS();
         }
@@ -344,7 +344,7 @@ void GameCtrl::autoMove() {
 
 void GameCtrl::testCreateFood() {
     while (1) {
-        map->createFood();
+        map->createRandFood();
     }
 }
 
@@ -362,7 +362,7 @@ void GameCtrl::testGraphSearch() {
         map->getPoint(Pos(i, 15)).setType(Point::Type::WALL);
     }
 
-    // Test search algoritm
+    // Test search algorithm
     Pos from(9, 10), to(10, 17);
     list<Direction> path;
     map->setShowSearchDetails(true);

@@ -58,9 +58,14 @@ public:
     void getEmptyPoints(std::vector<Pos> &res) const;
 
     /*
-    Create food on the map.
+    Create food at an empty position randomly.
     */
-    void createFood();
+    void createRandFood();
+
+    /*
+    Create food at a given position.
+    */
+    void createFood(const Pos &pos);
 
     /*
     Remove food from the map.
